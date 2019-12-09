@@ -1,13 +1,18 @@
-package org.apache.camel.component.google.distance.matrix;
+package org.apache.camel.component.google.distance.matrix.service.impl;
+
+import org.apache.camel.component.google.distance.matrix.service.HaversineService;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class HaversineService {
+public class Haversine implements HaversineService {
 
     private static final Double RAIO_TERRA = 6372.8;
 
-    public Map<Map<Double, Double>, Map<Double, Double>> getLatLongToSendForGoogleDistanceMatrix(Map<Double, Double> origin, Map<Double, Double> destination, Double radius) {
+    @Override
+    public Map<Map<Double, Double>, Map<Double, Double>> getLatLongToSendForGoogleDistanceMatrix(final Map<Double, Double> origin,
+                                                                                                 final Map<Double, Double> destination,
+                                                                                                 final Double radius) {
 
         Map<Map<Double, Double>, Map<Double, Double>> coordinatesForGoogleDistanceMatrix = new HashMap<>();
         Map<Double, Double> coordinatesInsideRadius = new HashMap<>();

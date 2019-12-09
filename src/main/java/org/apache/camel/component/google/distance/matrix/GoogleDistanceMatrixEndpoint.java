@@ -30,7 +30,29 @@ public class GoogleDistanceMatrixEndpoint extends DefaultEndpoint {
     private Double radius = 1d;
 
     @UriParam(defaultValue = "5000")
-    private Long timeout = 5000L;
+    private Integer connectionTimeout = 5000;
+
+    @UriParam(defaultValue = "5000")
+    private Integer socketTimeout = 5000;
+
+    @UriParam(defaultValue = "json")
+    private String type = "json";
+
+    @UriParam(defaultValue = "driving")
+    private String mode = "driving";
+
+    @UriParam(defaultValue = "pt-BR")
+    private String language = "pt-BR";
+
+    @UriParam(defaultValue = "false")
+    private Boolean sensor = false;
+
+    @UriParam(defaultValue = "metric")
+    private String unit = "metric";
+
+    @UriParam
+    private String key;
+
 
     public GoogleDistanceMatrixEndpoint() {
     }
@@ -93,11 +115,67 @@ public class GoogleDistanceMatrixEndpoint extends DefaultEndpoint {
         this.radius = radius;
     }
 
-    public Long getTimeout() {
-        return timeout;
+    public Integer getConnectionTimeout() {
+        return connectionTimeout;
     }
 
-    public void setTimeout(Long timeout) {
-        this.timeout = timeout;
+    public void setConnectionTimeout(Integer connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public Integer getSocketTimeout() {
+        return socketTimeout;
+    }
+
+    public void setSocketTimeout(Integer socketTimeout) {
+        this.socketTimeout = socketTimeout;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Boolean getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Boolean sensor) {
+        this.sensor = sensor;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
