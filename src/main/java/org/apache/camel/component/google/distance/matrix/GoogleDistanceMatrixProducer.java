@@ -51,9 +51,6 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
          * Using Google
          */
         googleDistanceMatrix(exchange);
-
-
-        System.out.println(exchange.getIn().getBody());
     }
 
     /**
