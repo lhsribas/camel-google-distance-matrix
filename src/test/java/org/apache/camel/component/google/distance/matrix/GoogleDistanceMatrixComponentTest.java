@@ -1,12 +1,16 @@
 package org.apache.camel.component.google.distance.matrix;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GoogleDistanceMatrixComponentTest extends CamelTestSupport {
 
@@ -27,8 +31,12 @@ public class GoogleDistanceMatrixComponentTest extends CamelTestSupport {
     public void testGoogleDistanceMatrix() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMinimumMessageCount(1);
+        mock.expectedBodyReceived();
+        mock.getReceivedExchanges();
 
-        //assertMockEndpointsSatisfied();
+
+
+        assertMockEndpointsSatisfied();
     }
 
     @Override
@@ -40,7 +48,7 @@ public class GoogleDistanceMatrixComponentTest extends CamelTestSupport {
                             exchange.setProperty("LatLongOrigin", origin);
                             exchange.setProperty("LatLongDestination", destination);
                         })
-                        .to("distance-matrix://bar?haversine=true&radius=2&key=AIzaSyCT2C5tv8svunS8vr6E_VKDz2wI9nuOhn0")
+                        .to("distance-matrix://bar?option=5&haversine=true&radius=2&key=AIzaSyCT2C5tv8svunS8vr6E_VKDz2wI9nuOhn0")
                         .to("mock:result");
             }
         };

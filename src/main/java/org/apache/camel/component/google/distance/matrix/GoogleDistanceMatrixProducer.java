@@ -2,14 +2,14 @@ package org.apache.camel.component.google.distance.matrix;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.google.distance.matrix.dto.FilterMatrix;
-import org.apache.camel.component.google.distance.matrix.exception.NotFoundLatitudeLongitudeException;
-import org.apache.camel.component.google.distance.matrix.service.impl.DistanceMatrix;
-import org.apache.camel.component.google.distance.matrix.service.impl.Haversine;
+import org.apache.camel.component.google.distance.matrix.service.impl.DistanceMatrixServiceImpl;
+import org.apache.camel.component.google.distance.matrix.service.impl.HaversineServiceImpl;
 import org.apache.camel.impl.DefaultProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,12 +21,6 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
 
     private Map<Map<Double, Double>, Map<Double, Double>> coordinatesToGoogleDistanceMatrix;
 
-    private String contentType;
-    private String mode;
-    private String language;
-    private Boolean sensor = false;
-    private String units;
-
     public GoogleDistanceMatrixProducer(GoogleDistanceMatrixEndpoint endpoint) {
         super(endpoint);
         this.endpoint = endpoint;
@@ -36,11 +30,6 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
 
         final Map<Double, Double> origin = exchange.getProperty("LatLongOrigin", Map.class);
         final Map<Double, Double> destination = exchange.getProperty("LatLongDestination", Map.class);
-
-        /*
-         * Verify if is not null or empty
-         */
-        launcherLatLongExecetion(origin, destination);
 
         /*
          * If is enabled call the Haversine algorithm;
@@ -54,23 +43,13 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
     }
 
     /**
-     * Note: if the Latitude or Longitude of origin or destination is null or empty this is throw
-     * {@Link NotFoundLatitudeLongitudeException}
-     *
      * @param origin
      * @param destination
      */
-    private void launcherLatLongExecetion(final Map origin, final Map destination) throws NotFoundLatitudeLongitudeException {
-        if ((origin == null || origin.isEmpty()) || (destination == null || destination.isEmpty())) {
-            throw new NotFoundLatitudeLongitudeException("Error, Latitude or Longitude Not Found!");
-        }
-    }
+    private void harvesineIsEnabled(final Map origin, final Map destination) throws Exception {
+        Objects.nonNull(origin);
+        Objects.nonNull(destination);
 
-    /**
-     * @param origin
-     * @param destination
-     */
-    private void harvesineIsEnabled(final Map origin, final Map destination) {
         if (endpoint.getHaversine()) {
             filterGeolozalizationsWithHaversine(origin,
                     destination,
@@ -85,8 +64,8 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
      * @param destination
      * @param radius
      */
-    private void filterGeolozalizationsWithHaversine(final Map<Double, Double> origin, final Map<Double, Double> destination, final Double radius) {
-        this.coordinatesToGoogleDistanceMatrix = new Haversine().getLatLongToSendForGoogleDistanceMatrix(origin, destination, radius);
+    private void filterGeolozalizationsWithHaversine(final Map<Double, Double> origin, final Map<Double, Double> destination, final Double radius) throws Exception {
+        this.coordinatesToGoogleDistanceMatrix = new HaversineServiceImpl().getLatLongToSendForGoogleDistanceMatrix(origin, destination, radius);
     }
 
     private void googleDistanceMatrix(Exchange exchange) throws Exception {
@@ -96,11 +75,13 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
         StringBuffer bufferDestination = new StringBuffer();
 
         this.coordinatesToGoogleDistanceMatrix.forEach((_origin, _destination) -> {
+
+            /*counter*/
+            countPipe.set(_destination.size());
+
             _origin.forEach((_lat, _long) -> {
                 bufferOrigin.append(_lat).append(",").append(_long);
             });
-
-            countPipe.set(_destination.size());
 
             _destination.forEach((_lat, _long) -> {
                 bufferDestination.append(_lat).append(",").append(_long);
@@ -109,7 +90,6 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
                     bufferDestination.append("|");
                     countPipe.addAndGet(-1);
                 }
-
             });
         });
 
@@ -125,8 +105,9 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
         filterMatrix.setSocketTimeout(endpoint.getSocketTimeout());
         filterMatrix.setKey(endpoint.getKey());
 
-        String _data = new DistanceMatrix().distanceInfo(filterMatrix);
+        final String distance = new DistanceMatrixServiceImpl().distanceInfo(filterMatrix);
 
-        exchange.getOut().setBody(_data);
+        exchange.getOut().setBody(distance);
+        exchange.getIn().setBody(distance);
     }
 }

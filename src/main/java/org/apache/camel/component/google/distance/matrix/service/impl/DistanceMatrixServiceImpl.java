@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DistanceMatrix implements DistanceMatrixService {
+public class DistanceMatrixServiceImpl implements DistanceMatrixService {
 
     @Override
     public String distanceInfo(final FilterMatrix filterMatrix)  throws Exception {

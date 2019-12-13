@@ -50,7 +50,7 @@ public class GoogleDistanceMatrixEndpoint extends DefaultEndpoint {
     @UriParam(defaultValue = "metric")
     private String unit = "metric";
 
-    @UriParam
+    @UriParam()
     private String key;
 
 
