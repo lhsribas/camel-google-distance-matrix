@@ -36,8 +36,7 @@ the Haversines Law, relating the sides to angles of a "triangular" sphere.
 |===
 // component options: END
 
-[[ https://developers.google.com/maps/documentation/distance-matrix/intro#travel_modes ]]
-=== Travel Modes
+=== link:view-source:asciidoctor.org[Travel Modes,window=https://developers.google.com/maps/documentation/distance-matrix/intro#travel_modes]
 
 For the calculation of distances, you may specify the transportation mode to use. By default, distances are calculated for driving mode. The following travel modes are supported:
     
