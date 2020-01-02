@@ -39,7 +39,7 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
         /*
          * Using Google
          */
-        googleDistanceMatrix(exchange);
+        filterGoogleDistanceMatrix(exchange);
     }
 
     /**
@@ -68,7 +68,7 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
         this.coordinatesToGoogleDistanceMatrix = new HaversineServiceImpl().getLatLongToSendForGoogleDistanceMatrix(origin, destination, radius);
     }
 
-    private void googleDistanceMatrix(Exchange exchange) throws Exception {
+    private void filterGoogleDistanceMatrix(Exchange exchange) throws Exception {
 
         AtomicInteger countPipe = new AtomicInteger();
         StringBuffer bufferOrigin = new StringBuffer();

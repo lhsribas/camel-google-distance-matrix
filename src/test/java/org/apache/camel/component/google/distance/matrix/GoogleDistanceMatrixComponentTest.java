@@ -14,10 +14,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class GoogleDistanceMatrixComponentTest extends CamelTestSupport {
 
-    private Map<Double, Double> origin  = new HashMap<>();
+    private Map<Double, Double> origin = new HashMap<>();
     private Map<Double, Double> destination = new HashMap<>();
 
-   public GoogleDistanceMatrixComponentTest(){
+    public GoogleDistanceMatrixComponentTest() {
         this.origin.put(-23.493925, -46.631343);
 
         this.destination.put(-23.501824, -46.623647);

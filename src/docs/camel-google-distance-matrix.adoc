@@ -1,0 +1,2 @@
+[[distance-matrix-component]]
+= Camel Google Distance Matrix
