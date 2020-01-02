@@ -31,7 +31,8 @@ the Haversines Law, relating the sides to angles of a "triangular" sphere.
 [width="100%",options="header"]
 |===
 | Name | Description | Default | Options | Type
-| mode | (defaults to driving) — Specifies the mode of transport to use when calculating distance. Valid values and other request details are specified in the Travel Modes section of this document. | driving | *driving*, *walking*, *bicycling*, *transit* | String
+| link:view-source:asciidoctor.org[mode,window=Travel Modes]
+ | (defaults to driving) — Specifies the mode of transport to use when calculating distance. Valid values and other request details are specified in the Travel Modes section of this document. | driving | *driving*, *walking*, *bicycling*, *transit* | String
 
 |===
 // component options: END
