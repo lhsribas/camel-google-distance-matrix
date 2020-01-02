@@ -1,16 +1,55 @@
-[[]]
-= Camel Google Distance Matrix
+= link:view-source:asciidoctor.org[Camel Google Distance Matrix,window=https://github.com/lhsribas/camel-google-distance-matrix/edit/developer/src/docs/camel-google-distance-matrix.adoc]
 
 The Camel Google Distance Matrix provides a mechanism to calculate the distance between geolocation, to provide a better
 consuming of the Distance Matrix API this component implements the Haversine's algorithm to filter the geolocation.
+
+[source,xml]
+----------------------------------------------------------
+<dependency>
+            
+</dependency>
+----------------------------------------------------------
+
 
 == Distance Matrix API
 
 The Distance Matrix API is a service that provides travel distance and time for a matrix of origins and destinations,
 based on the recommended route between start and end points.
 
+[CAUTION]
+====
+To use camel-google-distance-matrix is necessary 'YOUR_API_KEY'.
+====
+
 == Haversine's Formula
 
 Haversine's formula is an important equation used in navigation, providing distances between two points of a sphere
 from their latitudes and longitudes. It is a special case of a more general formula for spherical trigonometry,
 the Haversines Law, relating the sides to angles of a "triangular" sphere.
+
+== 1. Google Distance Matrix Options
+[width="100%",options="header"]
+|===
+| Name | Description | Default | Options | Type
+| mode | (defaults to driving) — Specifies the mode of transport to use when calculating distance. Valid values and other request details are specified in the Travel Modes section of this document. | driving | *driving*, *walking*, *bicycling*, *transit* | String
+
+|===
+// component options: END
+
+[[ https://developers.google.com/maps/documentation/distance-matrix/intro#travel_modes ]]
+=== Travel Modes
+
+For the calculation of distances, you may specify the transportation mode to use. By default, distances are calculated for driving mode. The following travel modes are supported:
+    
+    *driving* (default) indicates distance calculation using the road network.
+    
+    *walking* requests distance calculation for walking via pedestrian paths & sidewalks (where available).
+    
+    *bicycling* requests distance calculation for bicycling via bicycle paths & preferred streets (where available).
+    
+    *transit* requests distance calculation via public transit routes (where available). This value may only be specified if the request includes an API key or a Google Maps Platform Premium Plan client ID. If you set the mode to transit you can optionally specify either a departure_time or an arrival_time. If neither time is specified, the departure_time defaults to now (that is, the departure time defaults to the current time). You can also optionally include a transit_mode and/or a transit_routing_preference.
+
+[CAUTION]
+====
+Both walking and bicycling routes may sometimes not include clear pedestrian or bicycling paths, so these responses will return warnings in the returned result which you must display to the user.
+====
