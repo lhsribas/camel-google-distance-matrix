@@ -1,2 +1,16 @@
-[[distance-matrix-component]]
+[[https://github.com/lhsribas/camel-google-distance-matrix]]
 = Camel Google Distance Matrix
+
+The Camel Google Distance Matrix provides a mechanism to calculate the distance between geolocation, to provide a better
+consuming of the Distance Matrix API this component implements the Haversine's algorithm to filter the geolocation.
+
+== Distance Matrix API
+
+The Distance Matrix API is a service that provides travel distance and time for a matrix of origins and destinations,
+based on the recommended route between start and end points.
+
+== Haversine's Formula
+
+Haversine's formula is an important equation used in navigation, providing distances between two points of a sphere
+from their latitudes and longitudes. It is a special case of a more general formula for spherical trigonometry,
+the Haversines Law, relating the sides to angles of a "triangular" sphere.
