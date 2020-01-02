@@ -1,4 +1,4 @@
-link:https://github.com/lhsribas/camel-google-distance-matrix/edit/developer/src/docs/camel-google-distance-matrix.adoc[]
+link:url[https://github.com/lhsribas/camel-google-distance-matrix/edit/developer/src/docs/camel-google-distance-matrix.adoc]
 = Camel Google Distance Matrix
 
 The Camel Google Distance Matrix provides a mechanism to calculate the distance between geolocation, to provide a better
