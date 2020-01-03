@@ -32,7 +32,8 @@ the Haversines Law, relating the sides to angles of a "triangular" sphere.
 |===
 | Name | Description | Default | Options | Type
 | mode | (defaults to driving) — Specifies the mode of transport to use when calculating distance. Valid values and other request details are specified in the Travel Modes section of this document. | driving | *driving*, *walking*, *bicycling*, *transit* | String
-| unit | Specifies the unit system to use when expressing distance as text. See the Unit Systems section of this document for more information. | metrics | *metrics*, *imperial* | String
+| unit | Specifies the unit system to use when expressing distance as text. See the Unit Systems section of this document for more information. | metric
+ | *metric*, *imperial* | String
 | language | The language in which to return results. | pt-BR | https://developers.google.com/maps/faq#languagesupport | String
 | sensor | The Google Maps API previously required that you include the sensor parameter to indicate whether your application used a sensor to determine the user's location. This parameter is no longer required. | false | *true*, *false* | Boolean
 | type | where outputFormat | json | *json*, *xml* | String
