@@ -31,13 +31,27 @@ the Haversines Law, relating the sides to angles of a "triangular" sphere.
 [width="100%",options="header"]
 |===
 | Name | Description | Default | Options | Type
-| link:view-source:asciidoctor.org[mode,window=Travel Modes]
- | (defaults to driving) — Specifies the mode of transport to use when calculating distance. Valid values and other request details are specified in the Travel Modes section of this document. | driving | *driving*, *walking*, *bicycling*, *transit* | String
-
+| mode | (defaults to driving) — Specifies the mode of transport to use when calculating distance. Valid values and other request details are specified in the Travel Modes section of this document. | driving | *driving*, *walking*, *bicycling*, *transit* | String
+| unit | Specifies the unit system to use when expressing distance as text. See the Unit Systems section of this document for more information. | metrics | *metrics*, *imperial* | String
+| language | The language in which to return results. | pt-BR | https://developers.google.com/maps/faq#languagesupport | String
+| sensor | The Google Maps API previously required that you include the sensor parameter to indicate whether your application used a sensor to determine the user's location. This parameter is no longer required. | false | *true*, *false* | Boolean
+| type | where outputFormat | json | *json*, *xml* | String
+| origins | The starting point for calculating travel distance and time. You can supply one or more locations separated by the pipe character, in the form of an address, latitude/longitude coordinates, or a place ID:  | required | latitude and longitude | Map<Double, Double>
+| detinations | One or more locations to use as the finishing point for calculating travel distance and time. The options for the destinations parameter are the same as for the origins parameter, described above.  | required | latitude and longitude | Map<Double, Double>
+| key | Your application's API key. This key identifies your application for purposes of quota management. Learn how to get a key. | required | key | String
 |===
 // component options: END
 
-=== link:view-source:asciidoctor.org[Travel Modes,window=https://developers.google.com/maps/documentation/distance-matrix/intro#travel_modes]
+== 1. Haversine Options
+[width="100%",options="header"]
+|===
+| Name | Description | Default | Options | Type
+| haversine | This option enables the harversine algorithm to filter latitudes and longitudes | true | *true*, *false* | Boolean
+| radius | This option defines a distance to filter latitudes and longitudes in haversine algorithm | 1 | Range | Double
+|===
+// component options: END
+
+=== Travel Modes
 
 For the calculation of distances, you may specify the transportation mode to use. By default, distances are calculated for driving mode. The following travel modes are supported:
     
@@ -53,3 +67,27 @@ For the calculation of distances, you may specify the transportation mode to use
 ====
 Both walking and bicycling routes may sometimes not include clear pedestrian or bicycling paths, so these responses will return warnings in the returned result which you must display to the user.
 ====
+
+=== Unit Systems
+
+Distance Matrix results contain text within distance fields to indicate the distance of the calculated route. The unit system to use can be specified:
+
+    *units=metric* (default) returns distances in kilometers and meters.
+    *units=imperial* returns distances in miles and feet.
+
+[CAUTION]
+====
+this unit system setting only affects the text displayed within distance fields. The distance fields also contain values which are always expressed in meters.
+====
+
+=== The sensor Parameter
+
+The Google Maps API previously required that you include the sensor parameter to indicate whether your application used a sensor to determine the user's location. This parameter is no longer required.
+
+=== Type
+
+where outputFormat may be either of the following values:
+
+    *json* (recommended), indicates output in JavaScript Object Notation (JSON); or
+    *xml*, indicates output as XML.
+
