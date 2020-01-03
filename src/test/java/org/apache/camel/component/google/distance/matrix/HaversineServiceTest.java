@@ -39,7 +39,7 @@ public class HaversineServiceTest {
     public void filterLataLongWithHaverineRadius1Km() throws Exception {
         final HaversineService haversineService = new HaversineServiceImpl();
         final Map<Map<Double, Double>, Map<Double, Double>> haversineDistances =
-                haversineService.getLatLongToSendForGoogleDistanceMatrix(origin, destination, 1D);
+                haversineService.getLatLongToSendForGoogleDistanceMatrix(origin, destination, 1D, "metric");
 
         AtomicInteger expectedResult = new AtomicInteger();
 
@@ -54,7 +54,7 @@ public class HaversineServiceTest {
     public void filterLataLongWithHaverineRadius2Km() throws Exception {
         final HaversineService haversineService = new HaversineServiceImpl();
         final Map<Map<Double, Double>, Map<Double, Double>> haversineDistances =
-                haversineService.getLatLongToSendForGoogleDistanceMatrix(origin, destination, 2D);
+                haversineService.getLatLongToSendForGoogleDistanceMatrix(origin, destination, 2D, "metric");
 
         AtomicInteger expectedResult = new AtomicInteger();
 

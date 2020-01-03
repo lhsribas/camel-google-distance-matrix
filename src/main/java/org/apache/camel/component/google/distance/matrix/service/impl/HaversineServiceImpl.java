@@ -9,11 +9,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public class HaversineServiceImpl implements HaversineService {
 
     private static final Double RAIO_TERRA = 6372.8;
+    private static final Double UNIT_MILES_CONVERSION = 1.609344;
 
     @Override
     public Map<Map<Double, Double>, Map<Double, Double>> getLatLongToSendForGoogleDistanceMatrix(final Map<Double, Double> origin,
                                                                                                  final Map<Double, Double> destination,
-                                                                                                 final Double radius) throws Exception {
+                                                                                                 final Double radius,
+                                                                                                 final String unit) throws Exception {
 
         Map<Map<Double, Double>, Map<Double, Double>> coordinatesForGoogleDistanceMatrix = new HashMap<>();
         Map<Double, Double> coordinatesInsideRadius = new HashMap<>();
@@ -40,9 +42,29 @@ public class HaversineServiceImpl implements HaversineService {
 
                 v.set(RAIO_TERRA * eq.get());
 
-                if (v.get() <= radius) {
-                    coordinatesInsideRadius.put(dLat, dLong);
+
+                switch (unit){
+                    /*
+                     * With change the attribute 'unit' in the endpoint to imperial
+                     */
+                    case "imiperial" :
+
+                        //convert miles to kilometers
+                        if (v.get() <= (radius * UNIT_MILES_CONVERSION)) {
+                            coordinatesInsideRadius.put(dLat, dLong);
+                        }
+
+                        break;
+
+                    case "metric" :
+
+                        if (v.get() <= radius) {
+                            coordinatesInsideRadius.put(dLat, dLong);
+                        }
+
+                        break;
                 }
+
             });
         });
         coordinatesForGoogleDistanceMatrix.put(origin, coordinatesInsideRadius);

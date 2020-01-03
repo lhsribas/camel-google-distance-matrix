@@ -53,7 +53,8 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
         if (endpoint.getHaversine()) {
             filterGeolozalizationsWithHaversine(origin,
                     destination,
-                    endpoint.getRadius());
+                    endpoint.getRadius(),
+                    endpoint.getUnit());
         } else {
             this.coordinatesToGoogleDistanceMatrix.put(origin, destination);
         }
@@ -64,8 +65,8 @@ public class GoogleDistanceMatrixProducer extends DefaultProducer {
      * @param destination
      * @param radius
      */
-    private void filterGeolozalizationsWithHaversine(final Map<Double, Double> origin, final Map<Double, Double> destination, final Double radius) throws Exception {
-        this.coordinatesToGoogleDistanceMatrix = new HaversineServiceImpl().getLatLongToSendForGoogleDistanceMatrix(origin, destination, radius);
+    private void filterGeolozalizationsWithHaversine(final Map<Double, Double> origin, final Map<Double, Double> destination, final Double radius, final String unit) throws Exception {
+        this.coordinatesToGoogleDistanceMatrix = new HaversineServiceImpl().getLatLongToSendForGoogleDistanceMatrix(origin, destination, radius, unit);
     }
 
     private void filterGoogleDistanceMatrix(Exchange exchange) throws Exception {

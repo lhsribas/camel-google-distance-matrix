@@ -6,5 +6,6 @@ public interface HaversineService {
 
     Map<Map<Double, Double>, Map<Double, Double>> getLatLongToSendForGoogleDistanceMatrix(final Map<Double, Double> origin,
                                                                                           final Map<Double, Double> destination,
-                                                                                          final Double radius) throws Exception;
+                                                                                          final Double radius,
+                                                                                          final String unit) throws Exception;
 }
